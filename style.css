@@ -1,0 +1,407 @@
+/* Corps de la page */
+body {
+    background-color: #ffffff; /* blanc */
+}
+
+/* Conteneur du formulaire */
+.form-container {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 30px;
+    border-radius: 15px;
+    background-color: #e6ffe6; /* vert pâle */
+    box-shadow: 0 0 10px rgba(0, 128, 0, 0.2);
+}
+
+/* Style pour les champs de formulaire */
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+/* Bouton vert */
+.btn-vert {
+    background-color: #28a745; /* vert */
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 105%;
+}
+
+.btn-vert:hover {
+    background-color: #218838; /* vert plus foncé */
+}
+
+/* Message d'erreur */
+.error {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Message de succès */
+.success {
+    color: green;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+}
+h2 {
+    text-align: center;
+    color: #28a745; /* Optionnel : couleur verte pour le titre */
+    margin-top: 50px; /* Ajuste cette valeur selon le besoin */
+}
+p {
+    text-align: center;
+    margin-top: 1px;  /* Ramener le texte un peu vers le haut */
+    color: #28a745;  /* Couleur verte pour le texte */
+    font-weight: bold; /* Optionnel: mettre le texte en gras */
+}
+
+/* Style général */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* En-tête */
+header {
+    background-color: #28a745; /* Vert UNACREP */
+}
+
+header .navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+/* Section principale */
+h1 {
+    text-align: center;  /* Centrer le texte horizontalement */
+    color: #28a745;      /* Bleu foncé (ou la couleur que tu préfères) */
+    font-size: 36px;     /* Taille de la police */
+    margin-top: 50px;    /* Marge en haut (tu peux ajuster la valeur selon ton besoin) */
+    margin-bottom: 30px; /* Marge en bas (tu peux ajuster aussi) */
+}
+
+
+main p {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+/* Boutons */
+.btn {
+    font-size: 1.2rem;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Section Contact */
+section.bg-light {
+    background-color: #f1f1f1;
+    padding: 15px 0; /* Réduit l'espacement vertical */
+}
+
+section h5 {
+    font-size: 1.5rem; /* Réduit la taille du titre */
+    color: #333;
+    margin-bottom: 8px; /* Réduit l'espacement en bas du titre */
+}
+
+section p {
+    font-size: 1rem; /* Réduit la taille du texte */
+    color: #555;
+    margin-bottom: 0; /* Enlève la marge sous le paragraphe */
+}
+
+/* Pied de page */
+footer {
+    background-color: #343a40;
+    padding: 8px 0; /* Réduit l'espacement vertical du pied de page */
+}
+
+footer p {
+    font-size: 0.9rem; /* Réduit la taille de la police */
+    margin: 0; /* Enlève les marges par défaut */
+}
+
+footer a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.9rem; /* Réduit la taille de la police des liens */
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+
+
+/* Pied de page */
+footer {
+    background-color: #343a40;
+    padding: 10px 0; /* Réduit l'espacement vertical du pied de page */
+}
+
+footer p {
+    font-size: 0.9rem; /* Réduit la taille de la police */
+    margin: 0; /* Enlève les marges par défaut */
+}
+
+footer a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.9rem; /* Réduit la taille de la police des liens */
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Style pour centrer et colorier le texte de la navbar */
+.navbar-text {
+    color: #003366; /* Bleu foncé */
+    font-size: 50px; /* Taille de la police */
+    font-weight: bold; /* Gras */
+}
+
+
+/* Centrer le texte dans le conteneur de la navbar */
+.navbar-brand-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.bouton-container {
+    display: flex;
+    justify-content: center;  /* Centre les éléments horizontalement */
+    align-items: center;      /* Centre les éléments verticalement si nécessaire */
+    gap: 10px;                /* Espace entre les deux boutons */
+}
+
+/* Tableau de bord du fichier dashboard.php */
+
+
+/* style.css */
+
+.logout-button {
+    background-color: #dc3545; /* Couleur rouge atténuée */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: #c82333; /* Un rouge un peu plus foncé au survol */
+}
+
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.tab-content {
+    margin-top: 20px;
+}
+
+.nav-link {
+    cursor: pointer;
+}
+
+/* les onglets du tableau de bord */
+.nav-tabs {
+    border-bottom: 2px solid #dee2e6;
+    margin-top: 20px;
+}
+
+.nav-tabs .nav-link {
+    color: #4a4a4a;
+    background-color: #f8f9fa;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    margin-right: 10px;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.nav-tabs .nav-link:hover {
+    background-color: #e2e6ea;
+    color: #000;
+    border-color: #dee2e6;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #51756a; /* Vert doux */
+    color: white;
+    border-color: #218838;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+
+/* ************************liste des tdr ***************************************/
+
+
+/* Style global */
+body {
+    background-color: #f8f9fa;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+/* En-tête de la page */
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #218869;
+}
+
+/* Tableau */
+.table {
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table th {
+    background-color: #218869;
+    color: white;
+    text-align: center;
+}
+
+.table td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+/* Responsive */
+.table-responsive {
+    border-radius: 10px;
+    overflow-x: auto;
+}
+
+/* Messages */
+.alert-info {
+    text-align: center;
+    font-weight: bold;
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+}
+
+/* Boutons si tu ajoutes des actions plus tard */
+.btn-action {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    margin: 0 5px;
+}
+
+/* ----------------------- */
+/* Style renforcé pour les bordures du tableau */
+.tdr-table {
+    border-collapse: collapse !important;
+    width: 100%;
+    background-color: #fff;
+}
+
+.tdr-table th,
+.tdr-table td {
+    border: 2px solid #333 !important; /* Bordure épaisse et sombre */
+    padding: 10px;
+    text-align: center;
+}
+
+.tdr-table thead th {
+    background-color: #218869;
+    color: white;
+}
+
+.tdr-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+
+.btn-warning {
+    background-color: #f0ad4e;
+    border: none;
+    color: white;
+}
+
+.btn-danger {
+    background-color: #d9534f;
+    border: none;
+    color: white;
+}
+
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 0.85rem;
+    margin: 2px;
+}
+
+/* Style pour le message d'affichage du message de suppression  */
+
+.alert {
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    width: 50%;
+    margin: 10px auto;
+}
+
+.alert-success {
+    background-color: #f2f8f4;
+    color: #155724;
+    border: 1px solid #aed3b7;
+}
+
+.alert-danger {
+    background-color: #f2f8f4;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
