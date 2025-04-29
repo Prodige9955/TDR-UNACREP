@@ -39,7 +39,7 @@
         <div class="container text-center">
             <h5>Contactez-nous</h5>
             <p>Pour toute question ou assistance, n'hésitez pas à nous contacter.</p>
-            <p>Email: contact@unacrep.org | Téléphone: +225 01 23 45 67 89</p>
+            <p>Email: contact@unacrep.org | Téléphone: </p>
         </div>
     </section>
 

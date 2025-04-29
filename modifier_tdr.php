@@ -9,7 +9,9 @@ try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    die("Erreur de connexion : " . $e->getMessage());
+    // Redirection vers une page d'erreur en cas de problème de connexion
+    header("Location: erreur.php?type=connexion");
+    exit();
 }
 
 // Si le formulaire est soumis
@@ -21,41 +23,57 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $itineraire = $_POST['itineraire'];
     $budget = $_POST['budgetMission'];
 
-    $sql = "UPDATE ttdr SET 
-                dureeMission = :duree, 
-                chefMission = :chef, 
-                membreMission = :membres, 
-                itineraire = :itineraire, 
-                budgetMission = :budget 
-            WHERE idtdr = :idtdr";
+    // Requête de mise à jour du TDR
+    try {
+        $sql = "UPDATE ttdr SET 
+                    dureeMission = :duree, 
+                    chefMission = :chef, 
+                    membreMission = :membres, 
+                    itineraire = :itineraire, 
+                    budgetMission = :budget 
+                WHERE idtdr = :idtdr";
 
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([
-        ':duree' => $duree,
-        ':chef' => $chef,
-        ':membres' => $membres,
-        ':itineraire' => $itineraire,
-        ':budget' => $budget,
-        ':idtdr' => $idtdr
-    ]);
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ':duree' => $duree,
+            ':chef' => $chef,
+            ':membres' => $membres,
+            ':itineraire' => $itineraire,
+            ':budget' => $budget,
+            ':idtdr' => $idtdr
+        ]);
 
-    header("Location: liste_tdr.php?msg=modification_reussie");
-    exit();
+        // Si mise à jour réussie, redirection avec message de succès
+        header("Location: liste_tdr.php?msg=modification_reussie");
+        exit();
+    } catch (PDOException $e) {
+        // Si erreur de requête SQL
+        header("Location: erreur.php?type=update");
+        exit();
+    }
 }
 
 // Si l'ID est fourni, on récupère les données du TDR
 if (isset($_GET['id'])) {
     $idtdr = $_GET['id'];
-    $stmt = $pdo->prepare("SELECT * FROM ttdr WHERE idtdr = :idtdr");
-    $stmt->execute([':idtdr' => $idtdr]);
-    $tdr = $stmt->fetch(PDO::FETCH_ASSOC);
+    try {
+        $stmt = $pdo->prepare("SELECT * FROM ttdr WHERE idtdr = :idtdr");
+        $stmt->execute([':idtdr' => $idtdr]);
+        $tdr = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if (!$tdr) {
-        echo "TDR introuvable.";
+        if (!$tdr) {
+            // Si le TDR n'existe pas
+            header("Location: erreur.php?type=inexistant");
+            exit();
+        }
+    } catch (PDOException $e) {
+        // Si erreur de requête SQL
+        header("Location: erreur.php?type=sql");
         exit();
     }
 } else {
-    echo "ID manquant.";
+    // Si ID manquant dans l'URL
+    header("Location: erreur.php?type=vide");
     exit();
 }
 ?>
@@ -65,7 +83,7 @@ if (isset($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <title>Modifier un TDR</title>
-    <link rel="stylesheet" href="style.css"> <!-- même fichier CSS que pour ajout -->
+    <link rel="stylesheet" href="style.css"> 
     <link rel="stylesheet" href="css/bootstrap/css/bootstrap.min.css">
 </head>
 <body class="bg-light">

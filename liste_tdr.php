@@ -1,9 +1,24 @@
 <?php
-// Connexion à la base de données
-$pdo = new PDO("mysql:host=localhost;dbname=tdr;charset=utf8", "root", "");
+try {
+    // Connexion à la base de données
+    $pdo = new PDO("mysql:host=localhost;dbname=tdr;charset=utf8", "root", "");
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-// Récupération des TDR
-$tdrs = $pdo->query("SELECT * FROM ttdr ORDER BY idtdr ASC")->fetchAll(PDO::FETCH_ASSOC);
+    // Requête pour récupérer tous les TDR
+    $stmt = $pdo->query("SELECT * FROM ttdr");
+    $tdrs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+} catch (PDOException $e) {
+    // S'il y a une erreur de connexion ou SQL
+    if ($e->getCode() == 1049 || $e->getCode() == 2002) {
+        // 1049 = Base de données inconnue, 2002 = Serveur non trouvé
+        header("Location: erreur.php?type=connexion");
+        exit;
+    } else {
+        header("Location: erreur.php?type=recuperation");
+        exit;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -67,12 +82,14 @@ $tdrs = $pdo->query("SELECT * FROM ttdr ORDER BY idtdr ASC")->fetchAll(PDO::FETC
                             <td>
                                 <a href="modifier_tdr.php?id=<?php echo $tdr['idtdr']; ?>" class="btn btn-sm btn-warning">Modifier</a>
                                 <a href="supprimer_tdr.php?id=<?php echo $tdr['idtdr']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Confirmer la suppression ?');">Supprimer</a>
+                                <a href="detail_tdr.php?id=<?php echo $tdr['idtdr']; ?>" class="btn btn-info btn-sm">Voir détails</a>                          
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table> <br><br><br>
             <a href="dashboard.php" class="btn btn-danger px-4">  Retour  </a>
+            <a class="btn btn-success" id="addTDRTab" data-bs-toggle="tab" href="ajout_tdr.php" role="tab" aria-controls="addTDR" aria-selected="true">Ajouter un TDR</a>
         
         </div>
     <?php else: ?>
