@@ -1,7 +1,6 @@
-<?php
-
+<?php 
 session_start();
-require 'connexion.php'; // Fichier de connexion à la base de données
+require 'connexion.php'; // Connexion à la base de données
 
 $messageErreur = "";
 
@@ -12,8 +11,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nom = $_POST["nom"];
         $password = $_POST["password"];
 
-        // Requête pour récupérer l'utilisateur depuis la base de données
-        $sql = "SELECT * FROM utilisateur WHERE nom = ?";
+        // Récupérer l'utilisateur par le nom
+        $sql = "SELECT * FROM utilisateurs WHERE nom = ?";
         $stmt = $conn->prepare($sql);
         $stmt->execute([$nom]);
         $user = $stmt->fetch();
@@ -21,13 +20,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($user) {
             // Vérification du mot de passe
             if (password_verify($password, $user['password'])) {
+                // Stockage des infos utiles en session
                 $_SESSION["user"] = [
                     "id" => $user["id"],
                     "nom" => $user["nom"],
                     "prenom" => $user["prenom"],
-                    "service" => $user["service"]
+                    "role" => $user["role"]
                 ];
-                header("Location: dashboard.php");
+
+                // Redirection selon le rôle
+                switch ($user['role']) {
+                    case 'admin':
+                        header("Location: utilisateurs/admin_dashboard.php");
+                        break;
+                    case 'responsable':
+                        header("Location: utilisateurs/responsable_dashboard.php");
+                        break;
+                    case 'secretariat':
+                        header("Location: utilisateurs/secretariat_dashboard.php");
+                        break;
+                    case 'directeur':
+                        header("Location: utilisateurs/directeur_dashboard.php");
+                        break;
+                    case 'membre':
+                        header("Location: utilisateurs/membre_dashboard.php");
+                        break;
+                    default:
+                        header("Location: index.php");
+                        break;
+                }
                 exit();
             } else {
                 $messageErreur = "Mot de passe incorrect.";
@@ -38,6 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="fr">

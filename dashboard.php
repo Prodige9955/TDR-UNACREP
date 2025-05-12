@@ -32,7 +32,7 @@ if (!isset($_SESSION["user"])) {
                     <a class="nav-link active" id="listTDRTab" data-bs-toggle="tab" href="liste_tdr.php" role="tab" aria-controls="listTDR" aria-selected="false">Liste des TDR</a>
                 </li><br> <br>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link active" id="userManagementTab" href="gestion_utilisateurs.php" role="tab" aria-controls="userManagement" aria-selected="false">Gestion des Utilisateurs</a>
+                    <a class="nav-link active" id="userManagementTab" href="gestion_utilisateurs/gestion_utilisateurs.php" role="tab" aria-controls="userManagement" aria-selected="false">Gestion des Utilisateurs</a>
                 </li><br> <br>
                 <li class="nav-item" role="presentation">
                     <a class="nav-link active" id="reportsTab" href="rapports.php" role="tab" aria-controls="reports" aria-selected="false">Rapports</a>

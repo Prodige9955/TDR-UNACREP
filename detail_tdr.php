@@ -1,12 +1,33 @@
 <?php
-$pdo = new PDO("mysql:host=localhost;dbname=tdr;charset=utf8", "root", "");
+$pdo = new PDO("mysql:host=localhost;dbname=tdrr;charset=utf8", "root", "");
 
 // Récupération de l'ID via GET, avec vérification
 $id = $_GET['id'] ?? null;
 
 if ($id) {
     try {
-        $stmt = $pdo->prepare("SELECT * FROM ttdr WHERE idtdr = ?");
+        $stmt = $pdo->prepare("SELECT 
+                                    ttdr.*, 
+                                    vehicules.conducteur_nom,
+                                    CONCAT(pc.nom, ' ', pc.prenom) AS chef_mission,
+                                    GROUP_CONCAT(CONCAT( personnel.nom, ' ', personnel.prenom) SEPARATOR ', ') AS membres
+                                FROM 
+                                    ttdr
+                                LEFT JOIN 
+                                    vehicules ON ttdr.idvehicule = vehicules.idvehicule
+                                LEFT JOIN 
+                                    membres_tdr ON ttdr.idtdr = membres_tdr.idtdr
+                                LEFT JOIN 
+                                    personnel ON membres_tdr.idpersonnel = personnel.idpersonnel
+                                LEFT JOIN 
+                                    personnel pc ON ttdr.chefMission = pc.idpersonnel
+                                WHERE 
+                                    ttdr.idtdr = ?
+                                GROUP BY 
+                                    ttdr.idtdr
+                                ");
+
+
         $stmt->execute([$id]);
         $tdr = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -35,22 +56,51 @@ if ($id) {
     <link rel="stylesheet" href="css/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
+
+<style>
+    .info-row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 8px;
+    }
+
+    .label-span {
+        width: 200px;
+        font-weight: bold;
+    }
+
+    @media (max-width: 576px) {
+        .info-row {
+            flex-direction: column;
+        }
+
+        .label-span {
+            width: 100%;
+            margin-bottom: 4px;
+        }
+    }
+</style>
 <body>
 <div class="container">
     <div id="details">
         <h2>Détails du TDR</h2>
         
-        <div><span>ID du TDR : </span><?php echo $tdr['idtdr']; ?></div>
-        <div><span>Durée de la mission : </span><?php echo $tdr['dureeMission']; ?></div>
-        <div><span>Chef de mission : </span><?php echo $tdr['chefMission']; ?></div>
-        <div><span>Membres : </span><?php echo nl2br($tdr['membreMission']); ?></div>
-        <div><span>Itinéraire : </span><?php echo $tdr['itineraire']; ?></div>
-        <div><span>Budget estimé : </span><?php echo number_format($tdr['budgetMission'], 2, ',', ' ') . " FCFA"; ?></div>
-        
+        <div class="info-row"><span class="label-span">Titre de la mission    : </span><?php echo $tdr['titreMission']; ?></div>
+        <div class="info-row"><span class="label-span">Objectif de la mission : </span><?php echo $tdr['objectifMission']; ?></div>
+        <div class="info-row"><span class="label-span">Activité               : </span><?php echo $tdr['activite']; ?></div>
+        <div class="info-row"><span class="label-span">Durée de la mission    : </span><?php echo $tdr['dureeMission']; ?> Jour(s)</div>
+        <div class="info-row"><span class="label-span">Chef de mission        : </span><?php echo $tdr['chef_mission']; ?></div>
+        <div class="info-row"><span class="label-span">Membres                : </span><?php echo nl2br($tdr['membres']??''); ?></div>
+        <div class="info-row"><span class="label-span">Itinéraire             : </span><?php echo $tdr['itineraire']; ?></div>
+        <div class="info-row"><span class="label-span">Budget estimé          : </span><?php echo number_format($tdr['budgetMission'], 2, ',', ' ') . " FCFA"; ?></div>
+        <div class="info-row"><span class="label-span">Etape actuel           : </span><?php echo $tdr['etat_actuel']; ?></div>
+        <div class="info-row"><span class="label-span">Conducteur affecté     : </span><?php echo $tdr['conducteur_nom']; ?></div>
+
+
         <div class="button-container">
-            <a href="liste_tdr.php" class="btn-back">Retour à la liste</a>
             <a href="modifier_tdr.php?id=<?php echo $tdr['idtdr']; ?>" class="btn-modifier">Modifier le TDR</a>
-        </div>
+            <a href="liste_tdr.php" class="btn-back">Retour à la liste</a>
+            </div>
 
     </div>
 </div>

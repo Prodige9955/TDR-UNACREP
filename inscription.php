@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         // Insertion dans la base de données
-        $sql = "INSERT INTO utilisateur (nom, prenom, service, password) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO utilisateurs (nom, prenom, service, password) VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
 
         if ($stmt->execute([$nom, $prenom, $service, $hashedPassword])) {
